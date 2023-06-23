@@ -9,6 +9,7 @@ import '../src/local_storage_service.dart';
 class BitcoinService with ChangeNotifier {
   final _controller = StreamController<BitcoinModel>();
   final _localStorage = LocalStorageService();
+  final _oldValues = [];
 
   @override
   void dispose() {

@@ -32,11 +32,8 @@ class _BtcLogDialogState extends State<BtcLogDialog> {
     return AlertDialog(
       title: const Text('BTC Rate Log'),
       actionsAlignment: MainAxisAlignment.end,
-      content: logs == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : SizedBox(
+      content: logs != null
+          ? SizedBox(
               width: double.maxFinite,
               child: ListView.builder(
                 itemCount: logs!.length,
@@ -54,8 +51,12 @@ class _BtcLogDialogState extends State<BtcLogDialog> {
                   );
                 },
               ),
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
             ),
       actions: [
+        /// clear log button
         TextButton(
             child: const InkWell(
               child: Text('clear',
@@ -68,6 +69,8 @@ class _BtcLogDialogState extends State<BtcLogDialog> {
               await localStorage.removeAllBtcLog();
               setState(() => logs = []);
             }),
+
+        /// close dialog button
         TextButton(
           child: const InkWell(
             child: Text('close',
