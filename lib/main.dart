@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Stream<BitcoinModel>? btcStream;
 
   String _currencyType = 'USD';
-  String _btcConvert = '21151661.30';
+  String _btcConvert = '0.0';
 
   /// List of currency type selector
   List<DropdownMenuItem<String>> drops = const [
@@ -216,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool validateCurrency(String? input) {
     if (input == null || input.isEmpty) return false;
+    if (int.tryParse(input[0]) is! int) return false;
 
     String cleanedInput = input.trim();
     bool isCurrency = true;
@@ -232,7 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Check the decimal
     if (unit.length == 2) {
       String decimal = unit[1];
-      if (!validateNumber(decimal) || decimal.length > 2) {
+      if (!validateNumber(decimal) || decimal.length > 4) {
         isCurrency = false;
       }
     }
@@ -247,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool validateNumber(String num) {
     for (int i = 0; i < num.length; i++) {
-      if (num[i] != ',' && int.tryParse(num[i]) is! int) {
+      if (int.tryParse(num[i]) is! int) {
         return false;
       }
     }
